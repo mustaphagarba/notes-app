@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Note - Notes App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="/" class="btn btn-back">← Back</a>
+      <h1>Edit Note</h1>
+    </header>
+
+    <main class="form-container">
+      <form method="POST" action="/save">
+        <input type="hidden" name="id" value="<%= note.id %>">
+        
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            value="<%= note.title %>" 
+            placeholder="Note title" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea 
+            id="content" 
+            name="content" 
+            placeholder="Write your note here..." 
+            rows="12" 
+            required
+          ><%= note.content %></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="/" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

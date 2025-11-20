@@ -1,0 +1,74 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📝 Notes App</h1>
+      <a href="/new" class="btn btn-primary">+ New Note</a>
+    </header>
+
+    <main>
+      <% if (notes.length === 0) { %>
+        <div class="empty-state">
+          <p>No notes yet. <a href="/new">Create your first note</a></p>
+        </div>
+      <% } else { %>
+        <div class="notes-grid">
+          <% notes.forEach(note => { %>
+            <div class="note-card">
+              <h3><%= note.title %></h3>
+              <p class="preview"><%= note.content.substring(0, 100) %>...</p>
+              <div class="note-actions">
+                <a href="/note/<%= note.id %>" class="btn btn-small">View</a>
+                <a href="/edit/<%= note.id %>" class="btn btn-small">Edit</a>
+                <form method="POST" action="/delete/<%= note.id %>" style="display: inline;">
+                  <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Delete this note?')">Delete</button>
+                </form>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
+    </main>
+  </div>
+</body>
+</html>
+
+<!-- views/view.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= note.title %> - Notes App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="/" class="btn btn-back">← Back</a>
+      <h1><%= note.title %></h1>
+    </header>
+
+    <main class="note-view">
+      <div class="note-content">
+        <%= note.content %>
+      </div>
+      
+      <div class="note-footer">
+        <a href="/edit/<%= note.id %>" class="btn btn-primary">Edit</a>
+        <form method="POST" action="/delete/<%= note.id %>" style="display: inline;">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this note?')">Delete</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
